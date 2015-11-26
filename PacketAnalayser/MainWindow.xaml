@@ -10,24 +10,54 @@
         <TabControl>
             <TabItem Header="Sniffer" Name="SnifferTb">
                 <Grid>
-                    <TabControl TabStripPlacement="Left">
-                        <TabItem Header="ARP" Name="ARPTb">
-                            <StackPanel Name="ARPPaketten">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ListBox>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FirstName}" />
+                                        <TextBlock Text="{Binding LastName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ListBox>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FirstName}" />
+                                        <TextBlock Text="{Binding LastName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Type:"/>
+                                <TextBox Name="txbxType"/>
                             </StackPanel>
-                        </TabItem>
-                        <TabItem Header="IPv4" Name="IPv4Tb">
-                            <StackPanel Name="IPv4Paketten">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Source Ip:"/>
+                                <TextBox Name="txbxSIP"/>
                             </StackPanel>
-                        </TabItem>
-                        <TabItem Header="IPv6" Name="IPv6Tb">
-                            <StackPanel Name="IPv6Paketten">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Destination Ip:"/>
+                                <TextBox Name="txbxDIP"/>
                             </StackPanel>
-                        </TabItem>
-                    </TabControl>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-
             </TabItem>
-            <TabItem Header="Packet Aanmaken" Name="PATb"/>
+                <TabItem Header="Packet Aanmaken" Name="PATb"/>
             <TabItem Header="Packet injectie" Name="PITb" />
         </TabControl>
     </Grid>
