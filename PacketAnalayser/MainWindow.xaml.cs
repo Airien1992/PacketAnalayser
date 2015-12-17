@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SharpPcap;
+using SharpPcap.LibPcap;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,39 @@ namespace PacketAnalayser
         public MainWindow()
         {
             InitializeComponent();
+            // Retrieve all capture devices
+           
+           
+
+        }
+
+        private void btnCap_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CaptureDeviceList cdevices = CaptureDeviceList.Instance;
+                if (cdevices.Count >= 1)
+                {
+                    foreach (ICaptureDevice dev in cdevices)
+                    {
+                        NetworkCardsLists.Items.Add(dev);
+                    }
+                }
+
+                // check device isn't null
+                if (cdevices.Count < 1 || cdevices == null)
+                    throw new NullReferenceException();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
         }
     }
 }
