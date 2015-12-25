@@ -26,38 +26,53 @@ namespace PacketAnalayser
         {
             InitializeComponent();
             // Retrieve all capture devices
-           
-           
+                   
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
 
         }
 
         private void btnCap_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
             try
             {
+
                 CaptureDeviceList cdevices = CaptureDeviceList.Instance;
                 if (cdevices.Count >= 1)
                 {
+                    gbxDevList.Header = cdevices.Count + " Devices";
                     foreach (ICaptureDevice dev in cdevices)
                     {
-                        NetworkCardsLists.Items.Add(dev);
+                        lbxNetworkCardsLists.Items.Add(dev);
                     }
                 }
+                else
+                {
+                    gbxDevList.Header = "No Devices";
+                }
 
-                // check device isn't null
-                if (cdevices.Count < 1 || cdevices == null)
-                    throw new NullReferenceException();
+                /* // check device isn't null
+                 if (cdevices.Count < 1 || cdevices == null)
+                     throw new NullReferenceException();*/
+
+                gbxDevList.Visibility = Visibility.Visible;
             }
 
             catch (Exception ex)
             {
                 Console.WriteLine("{0} Exception caught.", ex);
             }
+
+        }
+
+
+        private void NetworkCardsLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            gbxDevInfo.Visibility = Visibility.Visible;
+            ICaptureDevice dev = lbxNetworkCardsLists.SelectedItem as ICaptureDevice;
+            gbxDevInfo.DataContext = dev;
         }
     }
 }

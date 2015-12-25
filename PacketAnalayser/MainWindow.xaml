@@ -16,30 +16,38 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <StackPanel>
-                            <Button Name="btnCap" Content="Start Capturing" Click="btnCap_Click"/>
-                            <ListBox Name="NetworkCardsLists">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Name}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </StackPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Button Name="btnCap" Content="Start Capturing" Click="btnCap_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <GroupBox Header="Devices" Name="gbxDevList" Visibility="Hidden">
+                                <StackPanel>
+                                    <ListBox Name="lbxNetworkCardsLists" SelectionChanged="NetworkCardsLists_SelectionChanged">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                        
                     </Grid>
                     <Grid Grid.Column="1">
-                        <ListBox>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding FirstName}" />
-                                        <TextBlock Text="{Binding LastName}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
+
+                            <StackPanel>
+                                <TextBlock Text="{Binding Description}" />
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">
                         <StackPanel Orientation="Vertical">
