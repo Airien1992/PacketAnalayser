@@ -12,8 +12,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="5*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -65,61 +64,60 @@
                         
                     </Grid>
                     <Grid Grid.Column="1">
-                        <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Visible">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Name: "/>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="FriendlyName: "/>
+                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Description: "/>
+                                        <TextBlock Text="{Binding Description}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Adresses: "/>
+                                        <ListBox Name="lbxAdresses">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="Address: "/>
+                                                            <TextBlock Text="{Binding Addr}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="Broadcast Address: "/>
+                                                            <TextBlock Text="{Binding BroadAddr}" />
+                                                        </StackPanel>
 
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
                             <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Name: "/>
-                                    <TextBlock Text="{Binding Name}" />
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Button Name="btnStartCapture" Content="Start Capturing" Click="btnStartCapture_Click"></Button>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="FriendlyName: "/>
-                                    <TextBlock Text="{Binding Interface.FriendlyName}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Description: "/>
-                                    <TextBlock Text="{Binding Description}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Adresses: "/>
-                                    <ListBox Name="lbxAdresses">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Address: "/>
-                                                        <TextBlock Text="{Binding Addr}" />
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Broadcast Address: "/>
-                                                        <TextBlock Text="{Binding BroadAddr}" />
-                                                    </StackPanel>
+                                <TextBlock Name="tbkPackets" Text="" />
 
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </StackPanel>
                             </StackPanel>
-                           
-                        </GroupBox>
+                          
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Column="2">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Type:"/>
-                                <TextBox Name="txbxType"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Source Ip:"/>
-                                <TextBox Name="txbxSIP"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Destination Ip:"/>
-                                <TextBox Name="txbxDIP"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
+                   
                 </Grid>
             </TabItem>
                 <TabItem Header="Packet Aanmaken" Name="PATb"/>

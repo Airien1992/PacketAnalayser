@@ -79,8 +79,6 @@ namespace PacketAnalayser
 
         }
 
-
-
         private void lbxAirPcapDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             gbxDevInfo.Visibility = Visibility.Visible;
@@ -103,6 +101,43 @@ namespace PacketAnalayser
             LibPcapLiveDevice dev = lbxLibPcapLiveDeviceList.SelectedItem as LibPcapLiveDevice;
             gbxDevInfo.DataContext = dev;
             lbxAdresses.ItemsSource = dev.Addresses;
+        }
+
+        private void btnStartCapture_Click(object sender, RoutedEventArgs e)
+        {
+            // Extract a device from the list
+            ICaptureDevice device = gbxDevInfo.DataContext as ICaptureDevice;
+
+            // Register our handler function to the
+            // 'packet arrival' event
+            device.OnPacketArrival +=
+                new SharpPcap.PacketArrivalEventHandler(device_OnPacketArrival);
+
+            // Open the device for capturing
+            int readTimeoutMilliseconds = 1000;
+            device.Open(DeviceMode.Promiscuous, readTimeoutMilliseconds);
+
+            Console.WriteLine("-- Listening on {0}, hit 'Enter' to stop...",
+                device.Description);
+
+            // Start the capturing process
+            device.StartCapture();
+
+            // Wait for 'Enter' from the user.
+            Console.ReadLine();
+
+            // Stop the capturing process
+            device.StopCapture();
+
+            // Close the pcap device
+            device.Close();
+        }
+        private static void device_OnPacketArrival(object sender, CaptureEventArgs e)
+        {
+            DateTime time = e.Packet.Timeval.Date;
+            int len = e.Packet.Data.Length;
+            MainWindow window = new MainWindow();
+            window.tbkPackets.Text= time.Hour+": "+ time.Minute + ": " + time.Second + ": " + time.Millisecond + ": " + len;
         }
     }
 }
