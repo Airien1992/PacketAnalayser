@@ -21,32 +21,87 @@
                             <RowDefinition Height="5*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <Button Name="btnCap" Content="Start Capturing" Click="btnCap_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Button Name="btnCap" Content="Get Devices" Click="btnCap_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <GroupBox Header="Devices" Name="gbxDevList" Visibility="Hidden">
+                            <GroupBox Name="gbxDeviceList" Visibility="Hidden">
                                 <StackPanel>
-                                    <ListBox Name="lbxNetworkCardsLists" SelectionChanged="NetworkCardsLists_SelectionChanged">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding Name}" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
+                                    <GroupBox Header="AirPcapDevice" Name="gbxAirPcapDeviceList" >
+                                        <ListBox Name="lbxAirPcapDeviceList" SelectionChanged="lbxAirPcapDeviceList_SelectionChanged" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
+                                    <GroupBox Header="WinPcapDevice" Name="gbxWinPcapDeviceList" >
+                                        <ListBox Name="lbxWinPcapDeviceList" SelectionChanged="lbxWinPcapDeviceList_SelectionChanged" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
+                                    <GroupBox Header="LibPcapLiveDevice" Name="gbxLibPcapLiveDeviceList">
+                                        <ListBox Name="lbxLibPcapLiveDeviceList" SelectionChanged="lbxLibPcapLiveDeviceList_SelectionChanged">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
                                 </StackPanel>
                             </GroupBox>
                         </Grid>
                         
                     </Grid>
                     <Grid Grid.Column="1">
-                        <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
+                        <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Visible">
 
                             <StackPanel>
-                                <TextBlock Text="{Binding Description}" />
-                                <TextBlock Text="{Binding Name}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Name: "/>
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="FriendlyName: "/>
+                                    <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Description: "/>
+                                    <TextBlock Text="{Binding Description}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Adresses: "/>
+                                    <ListBox Name="lbxAdresses">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Address: "/>
+                                                        <TextBlock Text="{Binding Addr}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Broadcast Address: "/>
+                                                        <TextBlock Text="{Binding BroadAddr}" />
+                                                    </StackPanel>
+
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
                             </StackPanel>
+                           
                         </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">

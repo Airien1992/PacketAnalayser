@@ -1,5 +1,7 @@
 ﻿using SharpPcap;
+using SharpPcap.AirPcap;
 using SharpPcap.LibPcap;
+using SharpPcap.WinPcap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,28 +40,38 @@ namespace PacketAnalayser
         {
             try
             {
-
+            
                 CaptureDeviceList cdevices = CaptureDeviceList.Instance;
                 if (cdevices.Count >= 1)
                 {
-                    gbxDevList.Header = cdevices.Count + " Devices";
+                    gbxDeviceList.Header = cdevices.Count + " Devices";
                     foreach (ICaptureDevice dev in cdevices)
                     {
-                        lbxNetworkCardsLists.Items.Add(dev);
+                        if (dev is AirPcapDevice)
+                        {
+                            lbxAirPcapDeviceList.Items.Add(dev as AirPcapDevice);
+                        }
+                        else if (dev is WinPcapDevice)
+                        {
+                            lbxWinPcapDeviceList.Items.Add(dev as WinPcapDevice);
+                        }
+                        else if (dev is LibPcapLiveDevice)
+                        {
+                            lbxLibPcapLiveDeviceList.Items.Add(dev as LibPcapLiveDevice);
+                        }
                     }
                 }
                 else
                 {
-                    gbxDevList.Header = "No Devices";
+                    gbxDeviceList.Header = "No Devices";
                 }
 
                 /* // check device isn't null
                  if (cdevices.Count < 1 || cdevices == null)
                      throw new NullReferenceException();*/
 
-                gbxDevList.Visibility = Visibility.Visible;
+                gbxDeviceList.Visibility = Visibility.Visible;
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine("{0} Exception caught.", ex);
@@ -68,11 +80,29 @@ namespace PacketAnalayser
         }
 
 
-        private void NetworkCardsLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void lbxAirPcapDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             gbxDevInfo.Visibility = Visibility.Visible;
-            ICaptureDevice dev = lbxNetworkCardsLists.SelectedItem as ICaptureDevice;
+            AirPcapDevice dev = lbxAirPcapDeviceList.SelectedItem as AirPcapDevice;
             gbxDevInfo.DataContext = dev;
+            lbxAdresses.ItemsSource = dev.Addresses;
+        }
+
+        private void lbxWinPcapDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            gbxDevInfo.Visibility = Visibility.Visible;
+            WinPcapDevice dev = lbxWinPcapDeviceList.SelectedItem as WinPcapDevice;
+            gbxDevInfo.DataContext = dev;
+            lbxAdresses.ItemsSource = dev.Addresses;
+        }
+
+        private void lbxLibPcapLiveDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            gbxDevInfo.Visibility = Visibility.Visible;
+            LibPcapLiveDevice dev = lbxLibPcapLiveDeviceList.SelectedItem as LibPcapLiveDevice;
+            gbxDevInfo.DataContext = dev;
+            lbxAdresses.ItemsSource = dev.Addresses;
         }
     }
 }
