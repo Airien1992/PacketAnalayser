@@ -110,8 +110,9 @@
                             <StackPanel>
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Button Name="btnStartCapture" Content="Start Capturing" Click="btnStartCapture_Click"></Button>
+                                    <Button Name="btnStopCapture" Content="Stop Capturing" Click="btnStopCapture_Click"></Button>
                                 </StackPanel>
-                                <TextBlock Name="tbkPackets" Text="" />
+                                <TextBox Name="tbxPacket"></TextBox>
 
                             </StackPanel>
                           

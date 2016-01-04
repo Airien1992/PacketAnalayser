@@ -24,6 +24,8 @@ namespace PacketAnalayser
     /// </summary>
     public partial class MainWindow : Window
     {
+        ICaptureDevice device;
+        String packet="1", prevPacket="1";
         public MainWindow()
         {
             InitializeComponent();
@@ -106,7 +108,7 @@ namespace PacketAnalayser
         private void btnStartCapture_Click(object sender, RoutedEventArgs e)
         {
             // Extract a device from the list
-            ICaptureDevice device = gbxDevInfo.DataContext as ICaptureDevice;
+            device = gbxDevInfo.DataContext as ICaptureDevice;
 
             // Register our handler function to the
             // 'packet arrival' event
@@ -125,19 +127,31 @@ namespace PacketAnalayser
 
             // Wait for 'Enter' from the user.
             Console.ReadLine();
+           
 
+           
+        }
+        private void device_OnPacketArrival(object sender, CaptureEventArgs e)
+        {
+            DateTime time = e.Packet.Timeval.Date;
+            int len = e.Packet.Data.Length;
+            Console.WriteLine("{0}:{1}:{2},{3} Len={4}",
+            time.Hour, time.Minute, time.Second, time.Millisecond, len);
+           packet = time.Hour+": "+ time.Minute + ": " + time.Second + ": " + time.Millisecond + ": " + len;
+            if (packet != prevPacket)
+            {
+                tbxPacket.Text = packet;
+                prevPacket = packet;
+            }
+        }
+
+        private void btnStopCapture_Click(object sender, RoutedEventArgs e)
+        {
             // Stop the capturing process
             device.StopCapture();
 
             // Close the pcap device
             device.Close();
-        }
-        private static void device_OnPacketArrival(object sender, CaptureEventArgs e)
-        {
-            DateTime time = e.Packet.Timeval.Date;
-            int len = e.Packet.Data.Length;
-            MainWindow window = new MainWindow();
-            window.tbkPackets.Text= time.Hour+": "+ time.Minute + ": " + time.Second + ": " + time.Millisecond + ": " + len;
         }
     }
 }
