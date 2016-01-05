@@ -148,56 +148,90 @@ namespace PacketAnalayser
             var WOL = WakeOnLanPacket.GetEncapsulated(packet);
            if (tcp != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                tbxPacket.Text = tcp.ToString();
+                            }));
                 Console.WriteLine(tcp.ToString());
             }
             if (ip!=null)
             {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = ip.ToString();
+                }));
                 Console.WriteLine(ip.ToString());
             }
             if (ethernet != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = ethernet.ToString();
+                }));
                 Console.WriteLine(ethernet.ToString());
             }
             if (udp != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = udp.ToString();
+                }));
                 Console.WriteLine(udp.ToString());
             }
             if (icmpv4 != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = icmpv4.ToString();
+                }));
                 Console.WriteLine(icmpv4.ToString());
             }
             if (icmpv6 != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = icmpv6.ToString();
+                }));
                 Console.WriteLine(icmpv6.ToString());
             }
             if (igmp != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = igmp.ToString();
+                }));
                 Console.WriteLine(igmp.ToString());
             }
             if (PPPoE != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = PPPoE.ToString();
+                }));
                 Console.WriteLine(PPPoE.ToString());
             }
             if (pppp != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = pppp.ToString();
+                }));
                 Console.WriteLine(pppp.ToString());
             }
             if (LLDP != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = LLDP.ToString();
+                }));
                 Console.WriteLine(LLDP.ToString());
             }
             if (WOL != null)
             {
-
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxPacket.Text = WOL.ToString();
+                }));
                 Console.WriteLine(WOL.ToString());
             }
         }
