@@ -1,4 +1,5 @@
-﻿using SharpPcap;
+﻿using PacketDotNet;
+using SharpPcap;
 using SharpPcap.AirPcap;
 using SharpPcap.LibPcap;
 using SharpPcap.WinPcap;
@@ -133,15 +134,71 @@ namespace PacketAnalayser
         }
         private void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
-            DateTime time = e.Packet.Timeval.Date;
-            int len = e.Packet.Data.Length;
-            Console.WriteLine("{0}:{1}:{2},{3} Len={4}",
-            time.Hour, time.Minute, time.Second, time.Millisecond, len);
-           packet = time.Hour+": "+ time.Minute + ": " + time.Second + ": " + time.Millisecond + ": " + len;
-            if (packet != prevPacket)
+            var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+            var tcp = TcpPacket.GetEncapsulated(packet);
+            var ip = IpPacket.GetEncapsulated(packet);
+            var ethernet = EthernetPacket.GetEncapsulated(packet);
+            var udp = UdpPacket.GetEncapsulated(packet);
+            var icmpv4 = ICMPv4Packet.GetEncapsulated(packet);
+            var icmpv6 = ICMPv6Packet.GetEncapsulated(packet);
+            var igmp = IGMPv2Packet.GetEncapsulated(packet);
+            var PPPoE = PPPoEPacket.GetEncapsulated(packet);
+            var pppp = PPPPacket.GetEncapsulated(packet);
+            var LLDP = LLDPPacket.GetEncapsulated(packet);
+            var WOL = WakeOnLanPacket.GetEncapsulated(packet);
+           if (tcp != null)
             {
-                tbxPacket.Text = packet;
-                prevPacket = packet;
+
+                Console.WriteLine(tcp.ToString());
+            }
+            if (ip!=null)
+            {
+                Console.WriteLine(ip.ToString());
+            }
+            if (ethernet != null)
+            {
+
+                Console.WriteLine(ethernet.ToString());
+            }
+            if (udp != null)
+            {
+
+                Console.WriteLine(udp.ToString());
+            }
+            if (icmpv4 != null)
+            {
+
+                Console.WriteLine(icmpv4.ToString());
+            }
+            if (icmpv6 != null)
+            {
+
+                Console.WriteLine(icmpv6.ToString());
+            }
+            if (igmp != null)
+            {
+
+                Console.WriteLine(igmp.ToString());
+            }
+            if (PPPoE != null)
+            {
+
+                Console.WriteLine(PPPoE.ToString());
+            }
+            if (pppp != null)
+            {
+
+                Console.WriteLine(pppp.ToString());
+            }
+            if (LLDP != null)
+            {
+
+                Console.WriteLine(LLDP.ToString());
+            }
+            if (WOL != null)
+            {
+
+                Console.WriteLine(WOL.ToString());
             }
         }
 
