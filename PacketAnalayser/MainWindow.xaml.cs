@@ -89,6 +89,7 @@ namespace PacketAnalayser
             AirPcapDevice dev = lbxAirPcapDeviceList.SelectedItem as AirPcapDevice;
             gbxDevInfo.DataContext = dev;
             lbxAdresses.ItemsSource = dev.Addresses;
+            gridCapture.Visibility = Visibility.Visible;
         }
 
         private void lbxWinPcapDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,6 +98,7 @@ namespace PacketAnalayser
             WinPcapDevice dev = lbxWinPcapDeviceList.SelectedItem as WinPcapDevice;
             gbxDevInfo.DataContext = dev;
             lbxAdresses.ItemsSource = dev.Addresses;
+            gridCapture.Visibility = Visibility.Visible;
         }
 
         private void lbxLibPcapLiveDeviceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -105,6 +107,7 @@ namespace PacketAnalayser
             LibPcapLiveDevice dev = lbxLibPcapLiveDeviceList.SelectedItem as LibPcapLiveDevice;
             gbxDevInfo.DataContext = dev;
             lbxAdresses.ItemsSource = dev.Addresses;
+            gridCapture.Visibility = Visibility.Visible;
         }
 
         private void btnStartCapture_Click(object sender, RoutedEventArgs e)

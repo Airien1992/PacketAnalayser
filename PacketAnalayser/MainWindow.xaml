@@ -67,7 +67,7 @@
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
@@ -107,7 +107,7 @@
                                 </StackPanel>
                             </GroupBox>
                         </Grid>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" Name="gridCapture" Visibility="Hidden">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="5*"/>
