@@ -139,8 +139,8 @@ namespace PacketAnalayser
         private void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             try {
-                var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
-
+                Packet packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+                
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                 lbxCapturedPacketList.Items.Add(packet);
@@ -164,7 +164,7 @@ namespace PacketAnalayser
             try { 
             gbxPacketInfo.Visibility = Visibility.Visible;
            Packet packet = lbxCapturedPacketList.SelectedItem as Packet;
-            Console.WriteLine(packet);
+            Console.WriteLine(packet.GetType());
             TcpPacket tcp = (TcpPacket)packet.Extract(typeof(TcpPacket));
             IpPacket ip = (IpPacket)packet.Extract(typeof(IpPacket));
                 EthernetPacket ethernet = (EthernetPacket)packet.Extract(typeof(EthernetPacket));
@@ -180,10 +180,9 @@ namespace PacketAnalayser
              {
                  this.Dispatcher.Invoke((Action)(() =>
                              {
-                                 gbxPacketInfo.DataContext = tcp;
                                  tbxInfo.Text += tcp.ToString(StringOutputType.Verbose);
+                                 
                              }));
-                 Console.WriteLine(tcp.ToString(StringOutputType.Verbose));
              }
              if (ip!=null)
              {
@@ -191,7 +190,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = ip.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(ip.ToString(StringOutputType.Verbose));
              }
              if (ethernet != null)
              {
@@ -199,7 +197,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = ethernet.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(ethernet.ToString(StringOutputType.Verbose));
              }
              if (udp != null)
              {
@@ -207,7 +204,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = udp.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(udp.ToString(StringOutputType.Verbose));
              }
              if (icmpv4 != null)
              {
@@ -215,7 +211,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = icmpv4.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(icmpv4.ToString(StringOutputType.Verbose));
              }
              if (icmpv6 != null)
              {
@@ -223,7 +218,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = icmpv6.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(icmpv6.ToString(StringOutputType.Verbose));
              }
              if (igmp != null)
              {
@@ -231,7 +225,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = igmp.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(igmp.ToString(StringOutputType.Verbose));
              }
              if (PPPoE != null)
              {
@@ -239,7 +232,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = PPPoE.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(PPPoE.ToString(StringOutputType.Verbose));
              }
              if (pppp != null)
              {
@@ -247,7 +239,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = pppp.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(pppp.ToString(StringOutputType.Verbose));
              }
              if (LLDP != null)
              {
@@ -255,7 +246,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = LLDP.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(LLDP.ToString(StringOutputType.Verbose));
              }
              if (WOL != null)
              {
@@ -263,7 +253,6 @@ namespace PacketAnalayser
                  {
                      tbxInfo.Text = WOL.ToString(StringOutputType.Verbose);
                  }));
-                 Console.WriteLine(WOL.ToString(StringOutputType.Verbose));
              }
             }
             catch (Exception ex)
