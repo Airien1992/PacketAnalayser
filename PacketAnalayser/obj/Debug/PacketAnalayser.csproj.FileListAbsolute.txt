@@ -71,3 +71,8 @@ F:\Hogeschool Artesis\Новая папка\ISec\PacketAnalayser\PacketAnalayser
 F:\Hogeschool Artesis\Новая папка\ISec\PacketAnalayser\PacketAnalayser\obj\Debug\PacketAnalayser.csproj.GenerateResource.Cache
 F:\Hogeschool Artesis\Новая папка\ISec\PacketAnalayser\PacketAnalayser\obj\Debug\PacketAnalayser.exe
 F:\Hogeschool Artesis\Новая папка\ISec\PacketAnalayser\PacketAnalayser\obj\Debug\PacketAnalayser.pdb
+C:\Users\Hannelore\Dropbox\school\2015-2016 ap electronica ICT\semester 1\information security\project\PacketAnalayser\bin\Debug\MahApps.Metro.dll
+C:\Users\Hannelore\Dropbox\school\2015-2016 ap electronica ICT\semester 1\information security\project\PacketAnalayser\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Hannelore\Dropbox\school\2015-2016 ap electronica ICT\semester 1\information security\project\PacketAnalayser\bin\Debug\MahApps.Metro.pdb
+C:\Users\Hannelore\Dropbox\school\2015-2016 ap electronica ICT\semester 1\information security\project\PacketAnalayser\bin\Debug\MahApps.Metro.xml
+C:\Users\Hannelore\Dropbox\school\2015-2016 ap electronica ICT\semester 1\information security\project\PacketAnalayser\obj\Debug\App.baml

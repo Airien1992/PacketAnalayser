@@ -1,4 +1,5 @@
-﻿using PacketDotNet;
+﻿using MahApps.Metro.Controls;
+using PacketDotNet;
 using SharpPcap;
 using SharpPcap.AirPcap;
 using SharpPcap.LibPcap;
@@ -23,7 +24,7 @@ namespace PacketAnalayser
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         ICaptureDevice device;
         String packet="1", prevPacket="1";
@@ -245,6 +246,11 @@ namespace PacketAnalayser
             {
                 Console.WriteLine("{0} Exception caught.", ex);
             }
+        }
+
+        private void btnClearList_Click(object sender, RoutedEventArgs e)
+        {
+            lbxCapturedPacketList.Items.Clear();
         }
 
         private void btnStopCapture_Click(object sender, RoutedEventArgs e)
