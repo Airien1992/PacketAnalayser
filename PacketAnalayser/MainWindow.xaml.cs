@@ -134,115 +134,133 @@ namespace PacketAnalayser
         }
         private void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
-            var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
-            var tcp = TcpPacket.GetEncapsulated(packet);
-            var ip = IpPacket.GetEncapsulated(packet);
-            var ethernet = EthernetPacket.GetEncapsulated(packet);
-            var udp = UdpPacket.GetEncapsulated(packet);
-            var icmpv4 = ICMPv4Packet.GetEncapsulated(packet);
-            var icmpv6 = ICMPv6Packet.GetEncapsulated(packet);
-            var igmp = IGMPv2Packet.GetEncapsulated(packet);
-            var PPPoE = PPPoEPacket.GetEncapsulated(packet);
-            var pppp = PPPPacket.GetEncapsulated(packet);
-            var LLDP = LLDPPacket.GetEncapsulated(packet);
-            var WOL = WakeOnLanPacket.GetEncapsulated(packet);
-           if (tcp != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                            {
-                                tbxPacket.Text = tcp.ToString();
-                            }));
-                Console.WriteLine(tcp.ToString());
-            }
-            if (ip!=null)
-            {
+            try { var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    tbxPacket.Text = ip.ToString();
+                    lbxCapturedPacketList.Items.Add(packet);
                 }));
-                Console.WriteLine(ip.ToString());
-            }
-            if (ethernet != null)
+
+                Console.WriteLine(packet);
+                var tcp = TcpPacket.GetEncapsulated(packet);
+                var ip = IpPacket.GetEncapsulated(packet);
+                var ethernet = EthernetPacket.GetEncapsulated(packet);
+                var udp = UdpPacket.GetEncapsulated(packet);
+                var icmpv4 = ICMPv4Packet.GetEncapsulated(packet);
+                var icmpv6 = ICMPv6Packet.GetEncapsulated(packet);
+                var igmp = IGMPv2Packet.GetEncapsulated(packet);
+                var PPPoE = PPPoEPacket.GetEncapsulated(packet);
+                var pppp = PPPPacket.GetEncapsulated(packet);
+                var LLDP = LLDPPacket.GetEncapsulated(packet);
+                var WOL = WakeOnLanPacket.GetEncapsulated(packet);
+                /*if (tcp != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                                 {
+                                     lbxCapturedPacketList.Items.Add(tcp);
+                                 }));
+                     Console.WriteLine(tcp.ToString());
+                 }
+                 if (ip!=null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(tcp);
+                     }));
+                     Console.WriteLine(ip.ToString());
+                 }
+                 if (ethernet != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(tcp);
+                     }));
+                     Console.WriteLine(ethernet.ToString());
+                 }
+                 if (udp != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(udp);
+                     }));
+                     Console.WriteLine(udp.ToString());
+                 }
+                 if (icmpv4 != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(icmpv4);
+                     }));
+                     Console.WriteLine(icmpv4.ToString());
+                 }
+                 if (icmpv6 != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(icmpv6);
+                     }));
+                     Console.WriteLine(icmpv6.ToString());
+                 }
+                 if (igmp != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(igmp);
+                     }));
+                     Console.WriteLine(igmp.ToString());
+                 }
+                 if (PPPoE != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(PPPoE);
+                     }));
+                     Console.WriteLine(PPPoE.ToString());
+                 }
+                 if (pppp != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(pppp);
+                     }));
+                     Console.WriteLine(pppp.ToString());
+                 }
+                 if (LLDP != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(LLDP);
+                     }));
+                     Console.WriteLine(LLDP.ToString());
+                 }
+                 if (WOL != null)
+                 {
+                     this.Dispatcher.Invoke((Action)(() =>
+                     {
+                         lbxCapturedPacketList.Items.Add(WOL);
+                     }));
+                     Console.WriteLine(WOL.ToString());
+                 }*/
+            }catch (Exception ex)
             {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = ethernet.ToString();
-                }));
-                Console.WriteLine(ethernet.ToString());
-            }
-            if (udp != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = udp.ToString();
-                }));
-                Console.WriteLine(udp.ToString());
-            }
-            if (icmpv4 != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = icmpv4.ToString();
-                }));
-                Console.WriteLine(icmpv4.ToString());
-            }
-            if (icmpv6 != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = icmpv6.ToString();
-                }));
-                Console.WriteLine(icmpv6.ToString());
-            }
-            if (igmp != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = igmp.ToString();
-                }));
-                Console.WriteLine(igmp.ToString());
-            }
-            if (PPPoE != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = PPPoE.ToString();
-                }));
-                Console.WriteLine(PPPoE.ToString());
-            }
-            if (pppp != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = pppp.ToString();
-                }));
-                Console.WriteLine(pppp.ToString());
-            }
-            if (LLDP != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = LLDP.ToString();
-                }));
-                Console.WriteLine(LLDP.ToString());
-            }
-            if (WOL != null)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    tbxPacket.Text = WOL.ToString();
-                }));
-                Console.WriteLine(WOL.ToString());
+                Console.WriteLine("{0} Exception caught.", ex);
             }
         }
 
         private void btnStopCapture_Click(object sender, RoutedEventArgs e)
         {
-            // Stop the capturing process
-            device.StopCapture();
+            try
+            {
+                // Stop the capturing process
+                device.StopCapture();
 
-            // Close the pcap device
-            device.Close();
-        }
+                // Close the pcap device
+                device.Close();
+            }           
+             catch (Exception ex)
+            {
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
+}
     }
 }
