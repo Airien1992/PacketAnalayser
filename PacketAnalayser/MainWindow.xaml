@@ -70,42 +70,57 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Name: "/>
-                                        <TextBlock Text="{Binding Name}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="FriendlyName: "/>
-                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Description: "/>
-                                        <TextBlock Text="{Binding Description}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Adresses: "/>
-                                        <ListBox Name="lbxAdresses">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="Address: "/>
-                                                            <TextBlock Text="{Binding Addr}" />
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="Broadcast Address: "/>
-                                                            <TextBlock Text="{Binding BroadAddr}" />
-                                                        </StackPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <GroupBox Header="Device Info" Name="gbxDevInfo" Visibility="Hidden">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Name: "/>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="FriendlyName: "/>
+                                            <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Description: "/>
+                                            <TextBlock Text="{Binding Description}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Adresses: "/>
+                                            <ListBox Name="lbxAdresses">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="Address: "/>
+                                                                <TextBlock Text="{Binding Addr}" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="Broadcast Address: "/>
+                                                                <TextBlock Text="{Binding BroadAddr}" />
+                                                            </StackPanel>
 
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
+                                </GroupBox>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <GroupBox Header="Packet Info" Name="gbxPacketInfo" Visibility="Hidden">
+                                    <ScrollViewer >
+                                        <DockPanel>
+                                                <TextBox Name="tbxInfo" TextWrapping="Wrap" />
+                                            </DockPanel>
+                                    </ScrollViewer>
+                                </GroupBox>
+                            </Grid>
                         </Grid>
                         <Grid Grid.Row="1" Name="gridCapture" Visibility="Hidden">
                             <Grid.RowDefinitions>
@@ -121,7 +136,7 @@
                             </Grid>
                             <Grid Grid.Row="1">
                                 <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">  
-                                    <ListBox Name="lbxCapturedPacketList" HorizontalContentAlignment="Stretch">
+                                    <ListBox Name="lbxCapturedPacketList" HorizontalContentAlignment="Stretch" SelectionChanged="lbxCapturedPacketList_SelectionChanged" >
                                         <ListBox.Template>
                                             <ControlTemplate>
                                                 <DockPanel LastChildFill="True">
