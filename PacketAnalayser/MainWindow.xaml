@@ -143,14 +143,16 @@
                                                     <Grid DockPanel.Dock="Top" Height="30">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
                                                             <ColumnDefinition Width="3*"></ColumnDefinition>
                                                             <ColumnDefinition Width="3*"></ColumnDefinition>
                                                             <ColumnDefinition Width="6*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
-                                                        <Label Grid.Column="0">Protocol</Label>
-                                                        <Label Grid.Column="1">Source</Label>
-                                                        <Label Grid.Column="2">Destiniation</Label>
-                                                        <Label Grid.Column="3">Info</Label>
+                                                        <Label Grid.Column="0">Type</Label>
+                                                        <Label Grid.Column="1">Protocol</Label>
+                                                        <Label Grid.Column="2">Source</Label>
+                                                        <Label Grid.Column="3">Destiniation</Label>
+                                                        <Label Grid.Column="4">Info</Label>
                                                     </Grid>
                                                     <ItemsPresenter></ItemsPresenter>
                                                 </DockPanel>
@@ -161,16 +163,23 @@
                                                 <Grid >
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
                                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                                         <ColumnDefinition Width="6*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="{Binding PayloadPacket.Protocol}" Grid.Column="0" />
-
-                                                    <TextBlock Text="{Binding PayloadPacket.SourceAddress}" Grid.Column="1"/>
-
-                                                    <TextBlock Text="{Binding PayloadPacket.DestinationAddress}" Grid.Column="2" />
-                                                    <TextBlock Text="{Binding PayloadPacket.PayloadPacket}" Grid.Column="3" />
+                                                    <TextBlock Text="{Binding Type}" Grid.Column="0" />
+                                                    
+                                                    <TextBlock Text="{Binding PayloadPacket.Protocol}" Grid.Column="1" />
+                                                    <TextBlock Text="{Binding PayloadPacket.Operation}" Grid.Column="1"/>
+                                                    
+                                                    <TextBlock Text="{Binding PayloadPacket.SourceAddress}" Grid.Column="2"/>
+                                                    <TextBlock Text="{Binding PayloadPacket.SenderProtocolAddress}" Grid.Column="2"/>
+                                                    
+                                                    <TextBlock Text="{Binding PayloadPacket.DestinationAddress}" Grid.Column="3" />
+                                                    <TextBlock Text="{Binding PayloadPacket.TargetProtocolAddress}" Grid.Column="3"/>
+                                                    
+                                                    <TextBlock Text="{Binding PayloadPacket.PayloadPacket}" Grid.Column="4" />
                                                 </Grid>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
