@@ -140,11 +140,14 @@ namespace PacketAnalayser
         {
             try {
                 Packet packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
-                
-                this.Dispatcher.Invoke((Action)(() =>
+                if (packet.PayloadPacket != null)
                 {
-                lbxCapturedPacketList.Items.Add(packet);
-                }));
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        lbxCapturedPacketList.Items.Add(packet);
+                    }));
+                }
+                
 
                 Console.WriteLine(packet);
                
@@ -180,7 +183,7 @@ namespace PacketAnalayser
              {
                  this.Dispatcher.Invoke((Action)(() =>
                              {
-                                 tbxInfo.Text += tcp.ToString(StringOutputType.Verbose);
+                                 tbxInfo.Text = tcp.ToString(StringOutputType.Verbose);
                                  
                              }));
              }
