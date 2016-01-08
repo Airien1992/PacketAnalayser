@@ -24,10 +24,16 @@ namespace PacketAnalayser
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : MetroWindow
     {
         ICaptureDevice device;
         String packet="1", prevPacket="1";
+
+        bool UDPfilter = false;
+        bool ICMPfilter = false;
+        bool TCPfilter = false;
+        bool Nofilter = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -140,12 +146,54 @@ namespace PacketAnalayser
         {
             try {
                 Packet packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+
                 if (packet.PayloadPacket != null)
                 {
-                    this.Dispatcher.Invoke((Action)(() =>
+                    if (UDPfilter)
                     {
-                        lbxCapturedPacketList.Items.Add(packet);
-                    }));
+                        if ((UdpPacket)packet.Extract(typeof(UdpPacket))!=null)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                lbxCapturedPacketList.Items.Add(packet);
+                            }));
+                        }
+                    }else if (TCPfilter)
+                    {
+                        if ((TcpPacket)packet.Extract(typeof(TcpPacket)) != null)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                lbxCapturedPacketList.Items.Add(packet);
+                            }));
+                        }
+                    }
+                    else if (ICMPfilter)
+                    {
+                        if ((ICMPv4Packet)packet.Extract(typeof(ICMPv4Packet)) != null || (ICMPv6Packet)packet.Extract(typeof(ICMPv6Packet)) != null)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                lbxCapturedPacketList.Items.Add(packet);
+                            }));
+                        }
+
+                    }
+                    else if (Nofilter)
+                    {
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            lbxCapturedPacketList.Items.Add(packet);
+                        }));
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            lbxCapturedPacketList.Items.Add(packet);
+                        }));
+                    }
+                  
                 }
                 
 
@@ -264,6 +312,38 @@ namespace PacketAnalayser
             }
 
 
+        }
+
+        private void btnCFilterProtocol_Click(object sender, RoutedEventArgs e)
+        {
+            if(cbxUDP.IsSelected==true)
+            {
+                UDPfilter = true;
+                ICMPfilter = false;
+                TCPfilter = false;
+                Nofilter = false;
+            }
+            if (cbxTCP.IsSelected == true)
+            {
+                UDPfilter = false;
+                ICMPfilter = false;
+                TCPfilter = true;
+                Nofilter = false;
+            }
+            if (cbxICMP.IsSelected == true)
+            {
+                UDPfilter = false;
+                ICMPfilter = true;
+                TCPfilter = false;
+                Nofilter = false;
+            }
+            if (cbxNo.IsSelected == true)
+            {
+                UDPfilter = false;
+                ICMPfilter = false;
+                TCPfilter = false;
+                Nofilter = true;
+            }
         }
 
         private void btnStopCapture_Click(object sender, RoutedEventArgs e)

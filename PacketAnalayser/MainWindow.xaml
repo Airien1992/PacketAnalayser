@@ -132,6 +132,17 @@
                                     <Button Name="btnStartCapture" Content="Start Capturing" Click="btnStartCapture_Click" Margin="0,0,10,0"></Button>
                                     <Button Name="btnStopCapture" Content="Stop Capturing" Click="btnStopCapture_Click" Margin="0,0,10,0"></Button>
                                     <Button Name="btnClearList" Content="Clear Listbox" Click="btnClearList_Click" ></Button>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Label  Content="Filter Protocol: "/>
+                                        <ComboBox Name="cbxFilter">
+                                            <ComboBoxItem Name="cbxNo" Content="No filter"/>
+                                            <ComboBoxItem Name="cbxTCP" Content="TCP"/>
+                                            <ComboBoxItem Name="cbxUDP" Content="UDP"/>
+                                            <ComboBoxItem Name="cbxICMP" Content="ICMP"/>       
+                                        </ComboBox>
+                                        <Button Name="btnCFilterProtocol" Content="Filter" Click="btnCFilterProtocol_Click" ></Button>
+
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1">
