@@ -62,7 +62,7 @@
                                 </StackPanel>
                             </GroupBox>
                         </Grid>
-                        
+
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -116,8 +116,8 @@
                                 <GroupBox Header="Packet Info" Name="gbxPacketInfo" Visibility="Hidden">
                                     <ScrollViewer >
                                         <DockPanel>
-                                                <TextBox Name="tbxInfo" TextWrapping="Wrap" />
-                                            </DockPanel>
+                                            <TextBox Name="tbxInfo" TextWrapping="Wrap" />
+                                        </DockPanel>
                                     </ScrollViewer>
                                 </GroupBox>
                             </Grid>
@@ -138,7 +138,7 @@
                                             <ComboBoxItem Name="cbxNo" Content="No filter"/>
                                             <ComboBoxItem Name="cbxTCP" Content="TCP"/>
                                             <ComboBoxItem Name="cbxUDP" Content="UDP"/>
-                                            <ComboBoxItem Name="cbxICMP" Content="ICMP"/>       
+                                            <ComboBoxItem Name="cbxICMP" Content="ICMP"/>
                                         </ComboBox>
                                         <Button Name="btnCFilterProtocol" Content="Filter" Click="btnCFilterProtocol_Click" ></Button>
 
@@ -146,7 +146,7 @@
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">  
+                                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
                                     <ListBox Name="lbxCapturedPacketList" HorizontalContentAlignment="Stretch" SelectionChanged="lbxCapturedPacketList_SelectionChanged" >
                                         <ListBox.Template>
                                             <ControlTemplate>
@@ -180,16 +180,16 @@
                                                         <ColumnDefinition Width="6*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Text="{Binding Type}" Grid.Column="0" />
-                                                    
+
                                                     <TextBlock Text="{Binding PayloadPacket.Protocol}" Grid.Column="1" />
                                                     <TextBlock Text="{Binding PayloadPacket.Operation}" Grid.Column="1"/>
-                                                    
+
                                                     <TextBlock Text="{Binding PayloadPacket.SourceAddress}" Grid.Column="2"/>
                                                     <TextBlock Text="{Binding PayloadPacket.SenderProtocolAddress}" Grid.Column="2"/>
-                                                    
+
                                                     <TextBlock Text="{Binding PayloadPacket.DestinationAddress}" Grid.Column="3" />
                                                     <TextBlock Text="{Binding PayloadPacket.TargetProtocolAddress}" Grid.Column="3"/>
-                                                    
+
                                                     <TextBlock Text="{Binding PayloadPacket.PayloadPacket}" Grid.Column="4" />
                                                 </Grid>
                                             </DataTemplate>
@@ -197,15 +197,142 @@
                                     </ListBox>
                                 </ScrollViewer>
                             </Grid>
-                          
+
                         </Grid>
                     </Grid>
-                   
+
                 </Grid>
             </TabItem>
-                <TabItem Header="Packet Aanmaken" Name="PATb"/>
-            <TabItem Header="Packet injectie" Name="PITb" />
+            <TabItem Header="Packet Aanmaken" Name="PATb"/>
+            <TabItem Header="Packet injectie" Name="PITb">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Button Name="btnCapture" Content="Get Devices"  VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCapture_Click"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <GroupBox Name="gbxDeviceListI" Visibility="Hidden">
+                                <StackPanel>
+                                    <GroupBox Header="AirPcapDevice" Name="gbxAirPcapDeviceListI" >
+                                        <ListBox Name="lbxAirPcapDeviceListI" SelectionChanged="lbxAirPcapDeviceListI_SelectionChanged" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
+                                    <GroupBox Header="WinPcapDevice" Name="gbxWinPcapDeviceListI" >
+                                        <ListBox Name="lbxWinPcapDeviceListI" SelectionChanged="lbxWinPcapDeviceListI_SelectionChanged" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
+                                    <GroupBox Header="LibPcapLiveDevice" Name="gbxLibPcapLiveDeviceListI">
+                                        <ListBox Name="lbxLibPcapLiveDeviceListI" SelectionChanged="lbxLibPcapLiveDeviceListI_SelectionChanged">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </GroupBox>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <GroupBox Header="Device Info" Name="gbxDevInfoI" Visibility="Hidden">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Name: "/>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="FriendlyName: "/>
+                                        <TextBlock Text="{Binding Interface.FriendlyName}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Description: "/>
+                                        <TextBlock Text="{Binding Description}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Adresses: "/>
+                                        <ListBox Name="lbxAdressesI">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="Address: "/>
+                                                            <TextBlock Text="{Binding Addr}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="Broadcast Address: "/>
+                                                            <TextBlock Text="{Binding BroadAddr}" />
+                                                        </StackPanel>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button Name="btnSendPacket" Content="Send" Click="btnSendPacket_Click" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Geef uw source ip adress in:"/>
+                                <TextBox Name="tbxSourceIp"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Geef uw destination ip adress in:"/>
+                                <TextBox Name="tbxDestinationIp"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Geef uw Payload in:"/>
+                                <TextBox Name="tbxPayloadIp"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Geef uw protocol in:"/>
+                                <TextBox Name="tbxProtocolIp"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Geef uw Time To Live in:"/>
+                                <TextBox Name="tbxTTLIp"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
-
 </Controls:MetroWindow>
